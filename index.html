@@ -269,6 +269,7 @@
           <div class="subtitle">Applied Engineering & AI</div>
         </div>
       </a>
+
       <div class="nav-actions">
         <button class="btn" id="themeToggle">🌗 Theme</button>
         <a class="btn btn-primary" href="#projects">🚀 Projects</a>
@@ -281,13 +282,17 @@
     <div class="particles"></div>
 
     <div class="hero-grid">
-      <div>
+      <div class="hero-text">
         <span class="badge">⚡ Futuristic Neon Portfolio</span>
+
         <h1 class="h1">
           Hi, I'm <span class="gradient">Aashi</span> — building
           <span class="gradient" id="typewriter"></span>
         </h1>
-        <p class="kicker">Welcome to my holographic AI‑lab portfolio...</p>
+
+        <p class="kicker">
+          Welcome to my holographic AI‑lab portfolio...
+        </p>
       </div>
 
       <!-- HOLOGRAPHIC CUBE -->
@@ -305,18 +310,18 @@
   </header>
 
   <!-- ABOUT -->
-  <section id="about" class="container fade-in">
+  <section id="about" class="container fade-in section">
     <div class="section-head">
       <h2>Who I Am</h2>
     </div>
 
-    <div class="about">
-      <div class="card">
+    <div class="about-grid">
+      <div class="card profile-card">
         <img class="profile" src="profile.jpg" alt="Profile photo" />
         <p class="mini">Replace <code>profile.jpg</code> with your image.</p>
       </div>
 
-      <div class="card">
+      <div class="card about-card">
         <p>I'm a Beaver Works student focusing on applied engineering and AI...</p>
         <ul>
           <li>🧰 Skills: Python, JavaScript, Arduino, Data Viz, Git</li>
@@ -328,7 +333,7 @@
   </section>
 
   <!-- GALLERY -->
-  <section id="gallery" class="container fade-in">
+  <section id="gallery" class="container fade-in section">
     <h2>Art Portfolio</h2>
 
     <div class="gallery-grid">
@@ -359,17 +364,17 @@
   </section>
 
   <!-- PROJECTS -->
-  <section id="projects" class="container fade-in">
+  <section id="projects" class="container fade-in section">
     <h2>Featured Work</h2>
     <div class="grid" id="projectsGrid"></div>
   </section>
 
-  <footer class="container fade-in">
+  <footer class="container fade-in footer">
     <div class="mini">© <span id="year"></span> Aashi · Futuristic AI Portfolio</div>
   </footer>
 
+  <!-- SCRIPTS -->
   <script>
-    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
     // Typewriter
@@ -382,6 +387,7 @@
     ];
     let idx = 0, ptr = 0, rev = false;
     const tw = document.getElementById('typewriter');
+
     function tick(){
       const text = phrases[idx];
       if(!rev){
