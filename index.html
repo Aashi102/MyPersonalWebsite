@@ -76,9 +76,11 @@
     }
 
     /* HERO */
-    .hero{padding:72px 0 20px}
+    .hero{
+      padding:100px 0 60px;
+    }
     .hero-grid{
-      display:grid; grid-template-columns:1.1fr .9fr; gap:28px; align-items:center;
+      display:grid; grid-template-columns:1.1fr .9fr; gap:40px; align-items:center;
     }
     .badge{
       display:inline-flex; gap:8px; padding:8px 12px;
@@ -103,25 +105,31 @@
     .card{
       background:var(--panel); border-radius:16px;
       padding:18px; border:1px solid var(--glass-brd);
+      transition:.25s ease;
+    }
+    .card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 0 20px rgba(66,165,245,.25);
     }
 
     /* ART GALLERY */
     #gallery{
-      padding:40px 0;
+      padding:60px 0;
     }
     .gallery-grid{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:18px;
+      gap:24px;
     }
     .proj{
       border-radius:16px; overflow:hidden;
       border:1px solid var(--glass-brd);
       background:var(--glass);
-      transition:.2s ease;
+      transition:.25s ease;
     }
     .proj:hover{
-      transform:translateY(-4px);
+      transform:translateY(-6px);
+      box-shadow:0 0 20px rgba(66,165,245,.25);
       border-color:var(--brand-2);
     }
     .thumb img{
@@ -132,13 +140,36 @@
     .proj-body p{margin-top:6px; color:var(--muted); font-size:14px}
 
     /* PROJECTS */
-    .grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px}
+    .grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; margin-top:20px}
     .tag{font-size:11px; padding:4px 8px; border-radius:999px; background:rgba(255,255,255,.08); border:1px solid var(--glass-brd)}
+
+    /* OUTPUT LINKS */
+    .links{
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px;
+    }
+    .link-card{
+      border:1px solid var(--glass-brd); background:var(--glass);
+      padding:16px; border-radius:14px; transition:.25s ease;
+    }
+    .link-card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 0 20px rgba(66,165,245,.25);
+    }
 
     /* FOOTER */
     footer{
       padding:32px 0; color:var(--muted);
       border-top:1px solid var(--glass-brd); margin-top:24px;
+    }
+
+    /* ANIMATIONS */
+    .fade-in{
+      opacity:0;
+      transform:translateY(20px);
+      animation:fadeInUp .7s ease forwards;
+    }
+    @keyframes fadeInUp{
+      to{opacity:1; transform:translateY(0);}
     }
 
     @media(max-width:900px){
@@ -155,7 +186,7 @@
 <body>
 
   <!-- NAV -->
-  <nav class="nav">
+  <nav class="nav fade-in">
     <div class="nav-wrap container">
       <a class="brand" href="#top">
         <div class="logo">AI</div>
@@ -172,7 +203,7 @@
   </nav>
 
   <!-- HERO -->
-  <header id="top" class="hero container">
+  <header id="top" class="hero container fade-in">
     <div class="hero-grid">
       <div>
         <span class="badge">⚡ Student Portfolio Template</span>
@@ -188,7 +219,7 @@
         </div>
       </div>
 
-      <div class="hero-card card">
+      <div class="hero-card card fade-in" style="animation-delay:.15s">
         <div class="mini">Starter checklist</div>
         <div class="hero-list">
           <div class="hero-item">✅ GitHub profile set up</div>
@@ -201,7 +232,7 @@
   </header>
 
   <!-- ABOUT -->
-  <section id="about" class="container">
+  <section id="about" class="container fade-in">
     <div class="section-head">
       <div>
         <div class="section-title">About</div>
@@ -227,8 +258,8 @@
     </div>
   </section>
 
-  <!-- ⭐ ART GALLERY (Inserted After ABOUT) -->
-  <section id="gallery" class="container">
+  <!-- ⭐ ART GALLERY -->
+  <section id="gallery" class="container fade-in">
     <div class="section-head">
       <div>
         <div class="section-title">Gallery</div>
@@ -264,7 +295,7 @@
   </section>
 
   <!-- PROJECTS -->
-  <section id="projects" class="container">
+  <section id="projects" class="container fade-in">
     <div class="section-head">
       <div>
         <div class="section-title">Projects & Labs</div>
@@ -284,7 +315,7 @@
   </section>
 
   <!-- OUTPUT LINKS -->
-  <section id="links" class="container">
+  <section id="links" class="container fade-in">
     <div class="section-head">
       <div>
         <div class="section-title">Outputs</div>
@@ -302,7 +333,7 @@
     </div>
   </section>
 
-  <footer class="container">
+  <footer class="container fade-in">
     <div class="mini">© <span id="year"></span> Beaver Works — Applied Engineering & AI</div>
   </footer>
 
@@ -359,7 +390,7 @@
       grid.innerHTML = '';
       list.forEach(p => {
         const el = document.createElement('article');
-        el.className = 'proj';
+        el.className = 'proj fade-in';
         el.innerHTML = `
           <div class="thumb" style="font-size:40px">${p.thumb}</div>
           <div class="proj-body">
@@ -378,10 +409,4 @@
     chips.forEach(ch => ch.addEventListener('click', () => {
       chips.forEach(c=>c.classList.remove('active')); ch.classList.add('active');
       const f = ch.dataset.filter;
-      if(f === 'all') return render(projects);
-      render(projects.filter(p => p.tags.includes(f)));
-    }));
-  </script>
-
-</body>
-</html>
+      if(f === 'all') return
