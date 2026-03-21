@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,7 +8,253 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ---------------------------------------------------
+       COLOR SYSTEM — HOLOGRAPHIC NEON
+    --------------------------------------------------- */
+    :root {
+      --bg: #050b16;
+      --panel: rgba(255,255,255,0.06);
+      --text: #e8ecf7;
+      --muted: #8fa3c8;
+
+      --brand: #3a8bff;
+      --brand-2: #6ecbff;
+      --brand-glow: rgba(80,150,255,0.55);
+
+      --glass: rgba(255,255,255,0.08);
+      --glass-brd: rgba(255,255,255,0.18);
+
+      --shadow: 0 0 25px rgba(0,140,255,0.25);
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, sans-serif;
+      background: radial-gradient(circle at 20% 20%, rgba(0,140,255,0.15), transparent 60%),
+                  radial-gradient(circle at 80% 80%, rgba(0,200,255,0.12), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 1150px; margin: 0 auto; padding: 24px; }
+
+    /* ---------------------------------------------------
+       NAVIGATION — HOLOGRAPHIC GLASS BAR
+    --------------------------------------------------- */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(14px) saturate(1.4);
+      background: rgba(0,0,0,0.35);
+      border-bottom: 1px solid var(--glass-brd);
+    }
+
+    .nav-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+    }
+
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      color: white;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      box-shadow: 0 0 20px var(--brand-glow);
+    }
+
+    .btn {
+      padding: 10px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--glass-brd);
+      background: var(--glass);
+      cursor: pointer;
+      transition: 0.25s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 15px var(--brand-glow);
+      border-color: var(--brand-2);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      border-color: transparent;
+      color: white;
+      box-shadow: 0 0 15px var(--brand-glow);
+    }
+
+    /* ---------------------------------------------------
+       HERO — HOLOGRAPHIC WIREFRAME CUBE
+    --------------------------------------------------- */
+    .hero {
+      padding: 120px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Floating particles */
+    .particles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px);
+      background-size: 3px 3px;
+      opacity: 0.15;
+      animation: drift 20s linear infinite;
+    }
+
+    @keyframes drift {
+      from { transform: translateY(0); }
+      to { transform: translateY(-200px); }
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 40px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .h1 {
+      font-size: 48px;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+
+    .gradient {
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    /* HOLOGRAPHIC CUBE */
+    .cube-wrapper {
+      width: 320px;
+      height: 320px;
+      margin: 0 auto;
+      perspective: 900px;
+    }
+
+    .cube {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotateCube 12s linear infinite;
+    }
+
+    @keyframes rotateCube {
+      from { transform: rotateX(0deg) rotateY(0deg); }
+      to { transform: rotateX(360deg) rotateY(360deg); }
+    }
+
+    .cube-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 2px solid var(--brand-2);
+      box-shadow: 0 0 20px var(--brand-glow);
+      background: rgba(0,0,0,0.1);
+      backdrop-filter: blur(6px);
+    }
+
+    .front  { transform: translateZ(160px); }
+    .back   { transform: rotateY(180deg) translateZ(160px); }
+    .right  { transform: rotateY(90deg) translateZ(160px); }
+    .left   { transform: rotateY(-90deg) translateZ(160px); }
+    .top    { transform: rotateX(90deg) translateZ(160px); }
+    .bottom { transform: rotateX(-90deg) translateZ(160px); }
+
+    /* ---------------------------------------------------
+       ABOUT — GLASS PANELS
+    --------------------------------------------------- */
+    .card {
+      background: var(--glass);
+      border: 1px solid var(--glass-brd);
+      border-radius: 18px;
+      padding: 20px;
+      backdrop-filter: blur(12px);
+      transition: 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 0 20px var(--brand-glow);
+    }
+
+    /* ---------------------------------------------------
+       ART GALLERY — HOLOGRAPHIC GRID
+    --------------------------------------------------- */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 28px;
+    }
+
+    .proj {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--glass-brd);
+      background: var(--glass);
+      transition: 0.25s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .proj:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 0 25px var(--brand-glow);
+      border-color: var(--brand-2);
+    }
+
+    .proj img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    /* ---------------------------------------------------
+       PROJECTS — FLOATING NEON CARDS
+    --------------------------------------------------- */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .tag {
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--glass-brd);
+      font-size: 12px;
+    }
+
+    /* ---------------------------------------------------
+       ANIMATIONS
+    --------------------------------------------------- */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 
 <body>
@@ -23,7 +269,6 @@
           <div class="subtitle">Applied Engineering & AI</div>
         </div>
       </a>
-
       <div class="nav-actions">
         <button class="btn" id="themeToggle">🌗 Theme</button>
         <a class="btn btn-primary" href="#projects">🚀 Projects</a>
@@ -36,17 +281,13 @@
     <div class="particles"></div>
 
     <div class="hero-grid">
-      <div class="hero-text">
+      <div>
         <span class="badge">⚡ Futuristic Neon Portfolio</span>
-
         <h1 class="h1">
           Hi, I'm <span class="gradient">Aashi</span> — building
           <span class="gradient" id="typewriter"></span>
         </h1>
-
-        <p class="kicker">
-          Welcome to my holographic AI‑lab portfolio...
-        </p>
+        <p class="kicker">Welcome to my holographic AI‑lab portfolio...</p>
       </div>
 
       <!-- HOLOGRAPHIC CUBE -->
@@ -64,18 +305,18 @@
   </header>
 
   <!-- ABOUT -->
-  <section id="about" class="container fade-in section">
+  <section id="about" class="container fade-in">
     <div class="section-head">
       <h2>Who I Am</h2>
     </div>
 
-    <div class="about-grid">
-      <div class="card profile-card">
+    <div class="about">
+      <div class="card">
         <img class="profile" src="profile.jpg" alt="Profile photo" />
         <p class="mini">Replace <code>profile.jpg</code> with your image.</p>
       </div>
 
-      <div class="card about-card">
+      <div class="card">
         <p>I'm a Beaver Works student focusing on applied engineering and AI...</p>
         <ul>
           <li>🧰 Skills: Python, JavaScript, Arduino, Data Viz, Git</li>
@@ -87,7 +328,7 @@
   </section>
 
   <!-- GALLERY -->
-  <section id="gallery" class="container fade-in section">
+  <section id="gallery" class="container fade-in">
     <h2>Art Portfolio</h2>
 
     <div class="gallery-grid">
@@ -118,15 +359,72 @@
   </section>
 
   <!-- PROJECTS -->
-  <section id="projects" class="container fade-in section">
+  <section id="projects" class="container fade-in">
     <h2>Featured Work</h2>
     <div class="grid" id="projectsGrid"></div>
   </section>
 
-  <footer class="container fade-in footer">
+  <footer class="container fade-in">
     <div class="mini">© <span id="year"></span> Aashi · Futuristic AI Portfolio</div>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Typewriter
+    const phrases = [
+      'futuristic AI systems',
+      'neon‑lit engineering prototypes',
+      'interactive ML dashboards',
+      'art that glows',
+      'experiments that matter'
+    ];
+    let idx = 0, ptr = 0, rev = false;
+    const tw = document.getElementById('typewriter');
+    function tick(){
+      const text = phrases[idx];
+      if(!rev){
+        ptr++;
+        if(ptr === text.length + 6) rev = true;
+      } else {
+        ptr--;
+        if(ptr <= 0){ rev = false; idx = (idx+1) % phrases.length; }
+      }
+      tw.textContent = text.slice(0, Math.max(0, Math.min(ptr, text.length)));
+      setTimeout(tick, rev ? 50 : 80);
+    }
+    tick();
+
+    // Projects
+    const projects = [
+      { title:'Oil Slick Classifier', desc:'Satellite imagery classification pipeline.', tags:['ai','data','web'], link:'#', call:'Open Notebook', thumb:'🛰️' },
+      { title:'Arduino Smart Sensor', desc:'Reads temp & light, streams to dashboard.', tags:['hw','web'], link:'#', call:'View Circuit', thumb:'🔌' },
+      { title:'Air Quality Explorer', desc:'PM2.5 trends with interactive charts.', tags:['data','web','ai'], link:'#', call:'Launch Demo', thumb:'🌫️' },
+      { title:'Micro‑blog Engine', desc:'Static blog with Markdown posts.', tags:['web'], link:'#', call:'Read Posts', thumb:'📝' },
+      { title:'Explainable KNN', desc:'Interactive KNN visualizer.', tags:['ai','data'], link:'#', call:'Try KNN', thumb:'📊' },
+      { title:'Sensor Logger App', desc:'PWA logging accelerometer data.', tags:['web','data'], link:'#', call:'Open App', thumb:'📱' }
+    ];
+
+    const grid = document.getElementById('projectsGrid');
+    function render(list){
+      grid.innerHTML = '';
+      list.forEach(p => {
+        const el = document.createElement('article');
+        el.className = 'proj fade-in';
+        el.innerHTML = `
+          <div class="thumb" style="font-size:40px; padding:20px">${p.thumb}</div>
+          <div class="proj-body">
+            <h3>${p.title}</h3>
+            <p>${p.desc}</p>
+            <div class="tags">${p.tags.map(t=>`<span class="tag">#${t}</span>`).join('')}</div>
+            <a class="btn" href="${p.link}">${p.call} →</a>
+          </div>`;
+        grid.appendChild(el);
+      });
+    }
+    render(projects);
+  </script>
+
 </body>
 </html>
