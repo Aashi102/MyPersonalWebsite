@@ -1,323 +1,245 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aashi · Applied Engineering & AI · Futuristic Portfolio</title>
-
+  <meta name="theme-color" content="#0a1929" />
+  <title>Applied Engineering & AI · Beaver Works Portfolio</title>
+  <meta name="description" content="A polished, modern portfolio template for MIT Beaver Works students in the Applied Engineering & AI track." />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-
   <style>
-    /* ---------------------------------------------------
-       COLOR SYSTEM — HOLOGRAPHIC NEON
-    --------------------------------------------------- */
-    :root {
-      --bg: #050b16;
-      --panel: rgba(255,255,255,0.06);
-      --text: #e8ecf7;
-      --muted: #8fa3c8;
-
-      --brand: #3a8bff;
-      --brand-2: #6ecbff;
-      --brand-glow: rgba(80,150,255,0.55);
-
-      --glass: rgba(255,255,255,0.08);
-      --glass-brd: rgba(255,255,255,0.18);
-
-      --shadow: 0 0 25px rgba(0,140,255,0.25);
+    :root{
+      --bg: #0a1929;
+      --panel: #132f4c;
+      --muted: #8a8fa3;
+      --text: #e6e8f2;
+      --brand: #1976d2;
+      --brand-2: #42a5f5;
+      --ring: 0 0 0 2px rgba(25,118,210,.25);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --glass: rgba(255,255,255,.06);
+      --glass-brd: rgba(255,255,255,.15);
+    }
+    [data-theme="light"]{
+      --bg: #f7f7fb;
+      --panel: #ffffff;
+      --muted: #4b5563;
+      --text: #0f172a;
+      --brand: #1976d2;
+      --brand-2: #42a5f5;
+      --ring: 0 0 0 2px rgba(25,118,210,.25);
+      --shadow: 0 8px 24px rgba(2,6,23,.08);
+      --glass: rgba(0,0,0,.03);
+      --glass-brd: rgba(0,0,0,.08);
     }
 
-    body {
-      margin: 0;
-      font-family: Inter, system-ui, sans-serif;
-      background: radial-gradient(circle at 20% 20%, rgba(0,140,255,0.15), transparent 60%),
-                  radial-gradient(circle at 80% 80%, rgba(0,200,255,0.12), transparent 60%),
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: radial-gradient(1200px 800px at 80% -10%, rgba(25,118,210,.12), transparent 60%),
+                  radial-gradient(900px 600px at 0% 0%, rgba(66,165,245,.10), transparent 40%),
                   var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
+      color:var(--text); line-height:1.6; letter-spacing:.2px;
+    }
+    a{color:inherit}
+    .container{max-width:1100px; margin:0 auto; padding:24px}
+
+    /* NAV */
+    .nav{
+      position:sticky; top:0; z-index:50; backdrop-filter:saturate(1.2) blur(8px);
+      background:linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,0));
+      border-bottom:1px solid var(--glass-brd);
+    }
+    .nav-wrap{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 24px}
+    .brand{display:flex; align-items:center; gap:12px; text-decoration:none}
+    .logo{
+      width:38px; height:38px; border-radius:12px; display:grid; place-items:center; font-weight:900;
+      background: conic-gradient(from 210deg, var(--brand), var(--brand-2)); color:#fff; box-shadow:var(--shadow);
+    }
+    .title{font-size:15px; font-weight:700; letter-spacing:.4px}
+    .subtitle{font-size:12px; color:var(--muted); margin-top:-6px}
+    .nav-actions{display:flex; gap:10px; align-items:center}
+    .btn{border:1px solid var(--glass-brd); background:var(--glass); color:var(--text);
+         padding:10px 14px; border-radius:12px; cursor:pointer; transition:transform .1s ease, background .2s ease, border-color .2s ease}
+    .btn:hover{transform:translateY(-1px); border-color:rgba(255,255,255,.3)}
+    .btn-primary{background:linear-gradient(180deg, rgba(25,118,210,.9), rgba(25,118,210,.7)); border-color:transparent}
+
+    /* HERO */
+    .hero{padding:72px 24px 20px}
+    .hero-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:28px; align-items:center}
+    .badge{display:inline-flex; align-items:center; gap:8px; font-weight:600; color:#fff; background:linear-gradient(90deg, var(--brand), var(--brand-2));
+      border-radius:999px; padding:8px 12px; box-shadow:var(--shadow); font-size:12px; letter-spacing:.35px}
+    .h1{font-size: clamp(28px, 4vw, 44px); line-height:1.1; margin:14px 0 10px; font-weight:900}
+    .h1 span.gradient{background:linear-gradient(90deg, var(--brand), var(--brand-2)); -webkit-background-clip:text; background-clip:text; color:transparent}
+    .kicker{color:var(--muted); max-width:60ch}
+    .cta{margin-top:18px; display:flex; gap:12px; flex-wrap:wrap}
+    .hero-card{border:1px solid var(--glass-brd); background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border-radius:18px; padding:16px; box-shadow:var(--shadow)}
+    .hero-list{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin-top:12px}
+    .hero-item{border:1px dashed var(--glass-brd); border-radius:14px; padding:12px; background:var(--glass)}
+    .mini{font-size:12px; color:var(--muted)}
+
+    /* SECTIONS */
+    section{padding:32px 24px}
+    .section-title{font-size:14px; letter-spacing:.25em; color:var(--muted); text-transform:uppercase; font-weight:700}
+    .section-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px}
+    .section-head h2{margin:4px 0 0; font-size:24px}
+
+    /* ABOUT */
+    .about{
+      display:grid; grid-template-columns:.8fr 1.2fr; gap:24px; align-items:start
+    }
+    .card{border:1px solid var(--glass-brd); background:var(--panel); border-radius:16px; padding:18px; box-shadow:var(--shadow)}
+    .profile{
+      width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:14px; border:1px solid var(--glass-brd);
     }
 
-    a { color: inherit; text-decoration: none; }
-    .container { max-width: 1150px; margin: 0 auto; padding: 24px; }
+    /* PROJECTS */
+    .filters{display:flex; gap:8px; flex-wrap:wrap}
+    .chip{padding:8px 12px; border-radius:999px; border:1px solid var(--glass-brd); background:var(--glass); cursor:pointer; font-size:13px}
+    .chip.active{background:linear-gradient(180deg, rgba(25,118,210,.85), rgba(25,118,210,.65)); border-color:transparent}
 
-    /* ---------------------------------------------------
-       NAVIGATION — HOLOGRAPHIC GLASS BAR
-    --------------------------------------------------- */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      backdrop-filter: blur(14px) saturate(1.4);
-      background: rgba(0,0,0,0.35);
-      border-bottom: 1px solid var(--glass-brd);
+    .grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px}
+    .proj{
+      position:relative; overflow:hidden; border-radius:16px; border:1px solid var(--glass-brd);
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      box-shadow:var(--shadow); transition:transform .2s ease, border-color .2s ease
     }
+    .proj:hover{transform:translateY(-3px); border-color:rgba(255,255,255,.28)}
+    .thumb{height:160px; background:linear-gradient(135deg, rgba(25,118,210,.22), rgba(66,165,245,.22)); display:grid; place-items:center; font-weight:800}
+    .proj-body{padding:14px}
+    .tags{display:flex; gap:8px; flex-wrap:wrap; margin:6px 0}
+    .tag{font-size:11px; padding:4px 8px; border-radius:999px; background:rgba(255,255,255,.08); border:1px solid var(--glass-brd)}
+    .proj a.btn{display:inline-flex; gap:8px; align-items:center}
 
-    .nav-wrap {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 14px 0;
+    /* OUTPUTS */
+    .links{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px}
+    .link-card{border:1px solid var(--glass-brd); background:var(--glass); border-radius:14px; padding:14px}
+
+    /* FOOTER */
+    footer{padding:32px 24px; color:var(--muted); border-top:1px solid var(--glass-brd); margin-top:24px}
+
+    /* UTIL */
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .fade-in{opacity:0; transform:translateY(8px); animation:fade .6s ease forwards}
+    @keyframes fade{to{opacity:1; transform:none}}
+
+    @media (max-width: 980px){
+      .hero-grid{grid-template-columns:1fr}
+      .about{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr 1fr}
+      .links{grid-template-columns:1fr 1fr}
     }
-
-    .logo {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      font-weight: 900;
-      color: white;
-      background: linear-gradient(135deg, var(--brand), var(--brand-2));
-      box-shadow: 0 0 20px var(--brand-glow);
-    }
-
-    .btn {
-      padding: 10px 16px;
-      border-radius: 12px;
-      border: 1px solid var(--glass-brd);
-      background: var(--glass);
-      cursor: pointer;
-      transition: 0.25s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 0 15px var(--brand-glow);
-      border-color: var(--brand-2);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--brand), var(--brand-2));
-      border-color: transparent;
-      color: white;
-      box-shadow: 0 0 15px var(--brand-glow);
-    }
-
-    /* ---------------------------------------------------
-       HERO — HOLOGRAPHIC WIREFRAME CUBE
-    --------------------------------------------------- */
-    .hero {
-      padding: 120px 0 80px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Floating particles */
-    .particles {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px);
-      background-size: 3px 3px;
-      opacity: 0.15;
-      animation: drift 20s linear infinite;
-    }
-
-    @keyframes drift {
-      from { transform: translateY(0); }
-      to { transform: translateY(-200px); }
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 40px;
-      align-items: center;
-      position: relative;
-      z-index: 2;
-    }
-
-    .h1 {
-      font-size: 48px;
-      font-weight: 900;
-      line-height: 1.1;
-    }
-
-    .gradient {
-      background: linear-gradient(90deg, var(--brand), var(--brand-2));
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    /* HOLOGRAPHIC CUBE */
-    .cube-wrapper {
-      width: 320px;
-      height: 320px;
-      margin: 0 auto;
-      perspective: 900px;
-    }
-
-    .cube {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      transform-style: preserve-3d;
-      animation: rotateCube 12s linear infinite;
-    }
-
-    @keyframes rotateCube {
-      from { transform: rotateX(0deg) rotateY(0deg); }
-      to { transform: rotateX(360deg) rotateY(360deg); }
-    }
-
-    .cube-face {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border: 2px solid var(--brand-2);
-      box-shadow: 0 0 20px var(--brand-glow);
-      background: rgba(0,0,0,0.1);
-      backdrop-filter: blur(6px);
-    }
-
-    .front  { transform: translateZ(160px); }
-    .back   { transform: rotateY(180deg) translateZ(160px); }
-    .right  { transform: rotateY(90deg) translateZ(160px); }
-    .left   { transform: rotateY(-90deg) translateZ(160px); }
-    .top    { transform: rotateX(90deg) translateZ(160px); }
-    .bottom { transform: rotateX(-90deg) translateZ(160px); }
-
-    /* ---------------------------------------------------
-       ABOUT — GLASS PANELS
-    --------------------------------------------------- */
-    .card {
-      background: var(--glass);
-      border: 1px solid var(--glass-brd);
-      border-radius: 18px;
-      padding: 20px;
-      backdrop-filter: blur(12px);
-      transition: 0.25s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 0 20px var(--brand-glow);
-    }
-
-    /* ---------------------------------------------------
-       ART GALLERY — HOLOGRAPHIC GRID
-    --------------------------------------------------- */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 28px;
-    }
-
-    .proj {
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid var(--glass-brd);
-      background: var(--glass);
-      transition: 0.25s ease;
-      backdrop-filter: blur(10px);
-    }
-
-    .proj:hover {
-      transform: translateY(-6px) scale(1.03);
-      box-shadow: 0 0 25px var(--brand-glow);
-      border-color: var(--brand-2);
-    }
-
-    .proj img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-
-    /* ---------------------------------------------------
-       PROJECTS — FLOATING NEON CARDS
-    --------------------------------------------------- */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-    }
-
-    .tag {
-      padding: 4px 8px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid var(--glass-brd);
-      font-size: 12px;
-    }
-
-    /* ---------------------------------------------------
-       ANIMATIONS
-    --------------------------------------------------- */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeIn 0.8s ease forwards;
-    }
-
-    @keyframes fadeIn {
-      to { opacity: 1; transform: translateY(0); }
+    @media (max-width: 640px){
+      .grid{grid-template-columns:1fr}
+      .links{grid-template-columns:1fr}
+      .nav-wrap{flex-wrap:wrap}
     }
   </style>
 </head>
-
 <body>
-
+    <div class="container">
+        <header>
+            <img src="profile.jpg" alt="Your Profile Picture" class="profile-pic">
+            <h1 id="name">Your Name</h1>
+            <p>Welcome to my portfolio! Here you can find my accomplishments, projects, and contact details.</p>
+            <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+        </header>
+        
+        <section id="about">
+            <h2>About Me</h2>
+            <p>Write a short bio about yourself here!</p>
+        </section>
+        
+        <section id="projects">
+            <h2>My Projects</h2>
+            <ul>
+                <li><a href="#">Project 1</a> - Description of your project.</li>
+                <li><a href="#">Project 2</a> - Description of another project.</li>
+            </ul>
+        </section>
+        
+        <section id="links">
+            <h2>Links</h2>
+            <ul>
+                <li><a href="https://github.com/yourgithub" target="_blank">GitHub</a></li>
+                <li><a href="https://deepnote.com/yourprofile" target="_blank">Deepnote</a></li>
+                <li><a href="resume.pdf" target="_blank">My Resume</a></li>
+            </ul>
+        </section>
+        
+        <footer>
+            <p>Contact me at: <span id="email">aashisriin01042010@gmail.com</span></p>
+        </footer>
   <!-- NAV -->
-  <nav>
-    <div class="nav-wrap container fade-in">
-      <a class="brand" href="#top">
-        <div class="logo">AI</div>
+  <nav class="nav">
+    <div class="nav-wrap container">
+      <a class="brand" href="#top" aria-label="Home">
+        <div class="logo" aria-hidden="true">AI</div>
         <div>
           <div class="title">Beaver Works</div>
           <div class="subtitle">Applied Engineering & AI</div>
         </div>
       </a>
       <div class="nav-actions">
-        <button class="btn" id="themeToggle">🌗 Theme</button>
+        <button class="btn" id="themeToggle" aria-label="Toggle theme">🌗 Theme</button>
         <a class="btn btn-primary" href="#projects">🚀 Projects</a>
       </div>
     </div>
   </nav>
 
   <!-- HERO -->
-  <header id="top" class="hero container fade-in">
-    <div class="particles"></div>
-
+  <header id="top" class="hero container">
     <div class="hero-grid">
       <div>
-        <span class="badge">⚡ Futuristic Neon Portfolio</span>
+        <span class="badge">⚡ Student Portfolio Template</span>
         <h1 class="h1">
-          Hi, I'm <span class="gradient">Aashi</span> — building
-          <span class="gradient" id="typewriter"></span>
+          Hi, I'm <span id="name">Aashi</span> — building
+          <span class="gradient" id="typewriter" aria-live="polite"></span>
         </h1>
-        <p class="kicker">Welcome to my holographic AI‑lab portfolio...</p>
-      </div>
-
-      <!-- HOLOGRAPHIC CUBE -->
-      <div class="cube-wrapper fade-in" style="animation-delay:.2s">
-        <div class="cube">
-          <div class="cube-face front"></div>
-          <div class="cube-face back"></div>
-          <div class="cube-face right"></div>
-          <div class="cube-face left"></div>
-          <div class="cube-face top"></div>
-          <div class="cube-face bottom"></div>
+        <p class="kicker">Welcome to my Beaver Works portfolio. Here you'll find my projects, labs, and hands‑on outputs from the <strong>Applied Engineering & AI</strong> track — from Arduino builds and data science notebooks to web apps and ML experiments.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#about">📘 About</a>
+          <a class="btn" href="#links">🔗 Outputs</a>
+          <a class="btn" href="#projects">🧪 Experiments</a>
         </div>
+      </div>
+      <div class="hero-card fade-in" style="animation-delay:.15s">
+        <div class="mini">Starter checklist</div>
+        <div class="hero-list">
+          <div class="hero-item">✅ GitHub profile set up</div>
+          <div class="hero-item">✅ Resume PDF exported</div>
+          <div class="hero-item">✅ Tinkercad circuit shared</div>
+          <div class="hero-item">✅ Colab notebook published</div>
+        </div>
+        <div class="mini" style="margin-top:10px">Tip: replace placeholders below to publish in ~10 minutes.</div>
       </div>
     </div>
   </header>
 
   <!-- ABOUT -->
-  <section id="about" class="container fade-in">
+  <section id="about" class="container">
     <div class="section-head">
-      <h2>Who I Am</h2>
+      <div>
+        <div class="section-title">About</div>
+        <h2>Who I Am</h2>
+      </div>
+      <a class="btn" href="#links">View Outputs →</a>
     </div>
-
     <div class="about">
       <div class="card">
-        <img class="profile" src="profile.jpg" alt="Profile photo" />
-        <p class="mini">Replace <code>profile.jpg</code> with your image.</p>
+        <img class="profile" src="profile.jpg" alt="Profile photo of student" />
+        <p class="mini" style="margin-top:10px">Replace <code>profile.jpg</code> with your image.
       </div>
-
       <div class="card">
-        <p>I'm a Beaver Works student focusing on applied engineering and AI...</p>
+        <p>I'm a Beaver Works student focusing on <strong>applied engineering</strong> and <strong>AI</strong>. I enjoy building things end‑to‑end: hardware prototypes, interactive dashboards, and machine learning demos. This site showcases a few of my favorite projects and learning artifacts.</p>
         <ul>
           <li>🧰 Skills: Python, JavaScript, Arduino, Data Viz, Git</li>
           <li>🧪 Interests: Edge AI, Robotics, Earth Data, Health Tech</li>
@@ -327,58 +249,94 @@
     </div>
   </section>
 
-  <!-- GALLERY -->
-  <section id="gallery" class="container fade-in">
-    <h2>Art Portfolio</h2>
-
-    <div class="gallery-grid">
-      <div class="proj">
-        <img src="art1.jpg" alt="">
-        <div class="proj-body">
-          <h3>Artwork Title</h3>
-          <p>Short description.</p>
-        </div>
+  <!-- PROJECTS -->
+  <section id="projects" class="container">
+    <div class="section-head">
+      <div>
+        <div class="section-title">Projects & Labs</div>
+        <h2>Featured Work</h2>
       </div>
-
-      <div class="proj">
-        <img src="art2.jpg" alt="">
-        <div class="proj-body">
-          <h3>Artwork Title</h3>
-          <p>Short description.</p>
-        </div>
+      <div class="filters" role="tablist" aria-label="Project filters">
+        <button class="chip active" data-filter="all" role="tab" aria-selected="true">All</button>
+        <button class="chip" data-filter="ai" role="tab">AI/ML</button>
+        <button class="chip" data-filter="hw" role="tab">Arduino/EE</button>
+        <button class="chip" data-filter="web" role="tab">Web</button>
+        <button class="chip" data-filter="data" role="tab">Data</button>
       </div>
+    </div>
+    <div class="grid" id="projectsGrid" aria-live="polite"></div>
+  </section>
 
-      <div class="proj">
-        <img src="art3.jpg" alt="">
-        <div class="proj-body">
-          <h3>Artwork Title</h3>
-          <p>Short description.</p>
-        </div>
+  <!-- OUTPUT LINKS -->
+  <section id="links" class="container">
+    <div class="section-head">
+      <div>
+        <div class="section-title">Outputs</div>
+        <h2>Profiles & Deliverables</h2>
+      </div>
+    </div>
+    <div class="links">
+      <a class="link-card" href="https://github.com/yourgithub" target="_blank" rel="noopener">
+        <strong>GitHub</strong>
+        <div class="mini">Code repositories & commits</div>
+      </a>
+      <a class="link-card" href="https://deepnote.com/yourprofile" target="_blank" rel="noopener">
+        <strong>Deepnote</strong>
+        <div class="mini">Notebooks & data exploration</div>
+      </a>
+      <a class="link-card" href="https://colab.research.google.com" target="_blank" rel="noopener">
+        <strong>Google Colab</strong>
+        <div class="mini">Interactive ML experiments</div>
+      </a>
+      <a class="link-card" href="https://www.tinkercad.com/" target="_blank" rel="noopener">
+        <strong>Tinkercad</strong>
+        <div class="mini">Circuits & Arduino demos</div>
+      </a>
+      <a class="link-card" href="resume.pdf" target="_blank" rel="noopener">
+        <strong>Resume (PDF)</strong>
+        <div class="mini">One‑page, latest version</div>
+      </a>
+      <a class="link-card" href="mailto:your.email@example.com">
+        <strong>Email</strong>
+        <div class="mini">your.email@example.com</div>
+      </a>
+      <div class="link-card">
+        <strong>Office Hours</strong>
+        <div class="mini">Add your calendar or booking link</div>
+      </div>
+      <div class="link-card">
+        <strong>Certificates/Badges</strong>
+        <div class="mini">Link your achievements here</div>
       </div>
     </div>
   </section>
 
-  <!-- PROJECTS -->
-  <section id="projects" class="container fade-in">
-    <h2>Featured Work</h2>
-    <div class="grid" id="projectsGrid"></div>
-  </section>
-
-  <footer class="container fade-in">
-    <div class="mini">© <span id="year"></span> Aashi · Futuristic AI Portfolio</div>
+  <footer class="container">
+    <div class="mini">© <span id="year"></span> Beaver Works — Applied Engineering & AI · Built with vanilla HTML/CSS/JS. Customize and publish to GitHub Pages.</div>
   </footer>
 
   <script>
+    // Theme Toggle
+    const root = document.documentElement;
+    const themeBtn = document.getElementById('themeToggle');
+    const saved = localStorage.getItem('theme');
+    if(saved){ document.documentElement.setAttribute('data-theme', saved); }
+    themeBtn.addEventListener('click', ()=>{
+      const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
     // Typewriter
     const phrases = [
-      'futuristic AI systems',
-      'neon‑lit engineering prototypes',
-      'interactive ML dashboards',
-      'art that glows',
-      'experiments that matter'
+      'useful things with code',
+      'Arduino prototypes that blink & think',
+      'ML models that explain themselves',
+      'web apps that feel fast',
+      'data stories that matter'
     ];
     let idx = 0, ptr = 0, rev = false;
     const tw = document.getElementById('typewriter');
@@ -396,14 +354,56 @@
     }
     tick();
 
-    // Projects
+    // Projects Data (edit me!)
     const projects = [
-      { title:'Oil Slick Classifier', desc:'Satellite imagery classification pipeline.', tags:['ai','data','web'], link:'#', call:'Open Notebook', thumb:'🛰️' },
-      { title:'Arduino Smart Sensor', desc:'Reads temp & light, streams to dashboard.', tags:['hw','web'], link:'#', call:'View Circuit', thumb:'🔌' },
-      { title:'Air Quality Explorer', desc:'PM2.5 trends with interactive charts.', tags:['data','web','ai'], link:'#', call:'Launch Demo', thumb:'🌫️' },
-      { title:'Micro‑blog Engine', desc:'Static blog with Markdown posts.', tags:['web'], link:'#', call:'Read Posts', thumb:'📝' },
-      { title:'Explainable KNN', desc:'Interactive KNN visualizer.', tags:['ai','data'], link:'#', call:'Try KNN', thumb:'📊' },
-      { title:'Sensor Logger App', desc:'PWA logging accelerometer data.', tags:['web','data'], link:'#', call:'Open App', thumb:'📱' }
+      {
+        title: 'Oil Slick Classifier',
+        desc: 'Satellite imagery (Sentinel‑2) classification mini‑pipeline with data preprocessing & model evaluation.',
+        tags: ['ai','data','web'],
+        link: '#',
+        call: 'Open Notebook',
+        thumb: '🛰️'
+      },
+      {
+        title: 'Arduino Smart Sensor',
+        desc: 'Tinkercad circuit + code for reading temperature & light, streaming to a simple web dashboard.',
+        tags: ['hw','web'],
+        link: '#',
+        call: 'View Circuit',
+        thumb: '🔌'
+      },
+      {
+        title: 'Air Quality Explorer',
+        desc: 'Colab + JS map visualizing PM2.5 trends with interactive charts and tooltips.',
+        tags: ['data','web','ai'],
+        link: '#',
+        call: 'Launch Demo',
+        thumb: '🌫️'
+      },
+      {
+        title: 'Micro‑blog Engine',
+        desc: 'Static site blog with Markdown posts, tags, and search — deployable on GitHub Pages.',
+        tags: ['web'],
+        link: '#',
+        call: 'Read Posts',
+        thumb: '📝'
+      },
+      {
+        title: 'Explainable KNN',
+        desc: 'Interactive KNN visualizer for classification regions and nearest neighbor inspection.',
+        tags: ['ai','data'],
+        link: '#',
+        call: 'Try KNN',
+        thumb: '📊'
+      },
+      {
+        title: 'Sensor Logger App',
+        desc: 'PWA that logs accelerometer & gyroscope data for quick experiments and CSV export.',
+        tags: ['web','data'],
+        link: '#',
+        call: 'Open App',
+        thumb: '📱'
+      }
     ];
 
     const grid = document.getElementById('projectsGrid');
@@ -413,18 +413,26 @@
         const el = document.createElement('article');
         el.className = 'proj fade-in';
         el.innerHTML = `
-          <div class="thumb" style="font-size:40px; padding:20px">${p.thumb}</div>
+          <div class="thumb" aria-hidden="true" style="font-size:40px">${p.thumb}</div>
           <div class="proj-body">
-            <h3>${p.title}</h3>
-            <p>${p.desc}</p>
+            <h3 style="margin:0 0 6px; font-size:18px">${p.title}</h3>
+            <p style="margin:0 0 10px; color:var(--muted)">${p.desc}</p>
             <div class="tags">${p.tags.map(t=>`<span class="tag">#${t}</span>`).join('')}</div>
-            <a class="btn" href="${p.link}">${p.call} →</a>
+            <a class="btn" href="${p.link}" target="_blank" rel="noopener">${p.call} →</a>
           </div>`;
         grid.appendChild(el);
       });
     }
     render(projects);
-  </script>
 
+    // Filters
+    const chips = Array.from(document.querySelectorAll('.chip'));
+    chips.forEach(ch => ch.addEventListener('click', () => {
+      chips.forEach(c=>c.classList.remove('active')); ch.classList.add('active');
+      const f = ch.dataset.filter;
+      if(f === 'all') return render(projects);
+      render(projects.filter(p => p.tags.includes(f)));
+    }));
+  </script>
 </body>
 </html>
