@@ -208,7 +208,33 @@ artCards.forEach(card => {
   });
 });
 
-// AI CHATBOT
+/* -----------------------------------------
+   AI CHATBOT (OpenRouter)
+----------------------------------------- */
+
+const chatBtn = document.getElementById("chatbot-button");
+const chatWindow = document.getElementById("chatbot-window");
+const chatClose = document.getElementById("chatbot-close");
+const chatMessages = document.getElementById("chatbot-messages");
+const chatInput = document.getElementById("chatbot-input");
+const chatSend = document.getElementById("chatbot-send");
+
+chatBtn.addEventListener("click", () => {
+  chatWindow.classList.toggle("hidden");
+});
+
+chatClose.addEventListener("click", () => {
+  chatWindow.classList.add("hidden");
+});
+
+function addMessage(text, sender) {
+  const msg = document.createElement("div");
+  msg.className = `chatbot-msg chatbot-${sender}`;
+  msg.textContent = text;
+  chatMessages.appendChild(msg);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
 async function askAI(question) {
   addMessage(question, "user");
 
@@ -231,3 +257,17 @@ async function askAI(question) {
 
   addMessage(answer, "ai");
 }
+
+chatSend.addEventListener("click", () => {
+  const text = chatInput.value.trim();
+  if (text) {
+    askAI(text);
+    chatInput.value = "";
+  }
+});
+
+chatInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    chatSend.click();
+  }
+});
