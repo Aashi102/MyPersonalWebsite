@@ -218,6 +218,7 @@ const chatClose = document.getElementById("chatbot-close");
 const chatMessages = document.getElementById("chatbot-messages");
 const chatInput = document.getElementById("chatbot-input");
 const chatSend = document.getElementById("chatbot-send");
+const chatTyping = document.getElementById("chatbot-typing");
 
 chatBtn.addEventListener("click", () => {
   chatWindow.classList.toggle("hidden");
@@ -235,27 +236,44 @@ function addMessage(text, sender) {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
+function showTyping() {
+  chatTyping.classList.remove("hidden");
+}
+
+function hideTyping() {
+  chatTyping.classList.add("hidden");
+}
+
 async function askAI(question) {
   addMessage(question, "user");
+  showTyping();
 
-  const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer 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"
-    },
-    body: JSON.stringify({
-      model: "openai/gpt-4o-mini",
-      messages: [
-        { role: "user", content: question }
-      ]
-    })
-  });
+  try {
+    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer YOUR_OPENROUTER_KEY_HERE"
+      },
+      body: JSON.stringify({
+        model: "openai/gpt-4o-mini",
+        messages: [
+          { role: "system", content: "You are a friendly, helpful AI assistant who explains things clearly and keeps answers short unless asked for detail." },
+          { role: "user", content: question }
+        ]
+      })
+    });
 
-  const data = await response.json();
-  const answer = data.choices[0].message.content;
+    const data = await response.json();
+    const answer = data.choices[0].message.content;
 
-  addMessage(answer, "ai");
+    hideTyping();
+    addMessage(answer, "ai");
+
+  } catch (error) {
+    hideTyping();
+    addMessage("Oops! Something went wrong. Try again.", "ai");
+  }
 }
 
 chatSend.addEventListener("click", () => {
