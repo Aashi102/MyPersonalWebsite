@@ -358,6 +358,29 @@ ul {
   border: 4px solid var(--brand);
   box-shadow: 0 0 15px var(--brand-glow);
 }
+  <!-- ART PORTFOLIO -->
+  <section id="art" class="container">
+    <div class="section-head">
+      <div>
+        <div class="section-title">Art Portfolio</div>
+        <h2>Illustrations & Digital Work</h2>
+      </div>
+    </div>
+
+    <div class="filters" id="artFilters">
+      <button class="chip active" data-filter="all">All</button>
+      <button class="chip" data-filter="digital">Digital</button>
+      <button class="chip" data-filter="sketch">Sketch</button>
+      <button class="chip" data-filter="3d">3D</button>
+    </div>
+
+    <div class="grid" id="artGrid"></div>
+  </section>
+
+  <!-- LIGHTBOX FOR ART -->
+  <div id="lightbox" class="lightbox hidden">
+    <img id="lightboxImg" src="" alt="Artwork preview">
+  </div>
 
 /* PROJECTS */
 .filters {
