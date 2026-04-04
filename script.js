@@ -289,3 +289,10 @@ chatInput.addEventListener("keydown", (e) => {
     chatSend.click();
   }
 });
+const chatBtn = document.getElementById("chatbot-button");
+const chatWindow = document.getElementById("chatbot-window");
+const chatClose = document.getElementById("chatbot-close");
+const chatMessages = document.getElementById("chatbot-messages");
+const chatInput = document.getElementById("chatbot-input");
+const chatSend = document.getElementById("chatbot-send");
+const chatTyping = document.getElementById("chatbot-typing");
