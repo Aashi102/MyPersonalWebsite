@@ -618,11 +618,16 @@ ul {
   font-size: 28px;
   cursor: pointer;
   box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease;
+}
+
+#chatbot-button:hover {
+  transform: scale(1.1);
 }
 
 #chatbot-window {
-  width: 320px;
-  height: 420px;
+  width: 340px;
+  height: 460px;
   background: rgba(255,255,255,0.85);
   border: 1px solid rgba(255,255,255,0.3);
   border-radius: 16px;
@@ -632,10 +637,16 @@ ul {
   flex-direction: column;
   overflow: hidden;
   margin-bottom: 10px;
+  animation: fadeIn 0.25s ease;
 }
 
 .hidden {
   display: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 #chatbot-header {
@@ -657,9 +668,10 @@ ul {
 
 .chatbot-msg {
   margin-bottom: 12px;
-  padding: 10px;
-  border-radius: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
   max-width: 80%;
+  animation: fadeIn 0.2s ease;
 }
 
 .chatbot-user {
@@ -671,6 +683,14 @@ ul {
 .chatbot-ai {
   background: rgba(0,0,0,0.1);
   color: #333;
+}
+
+#chatbot-typing {
+  padding: 8px 14px;
+  font-size: 13px;
+  color: #555;
+  opacity: 0.7;
+  font-style: italic;
 }
 
 #chatbot-input-area {
@@ -693,4 +713,3 @@ ul {
   color: white;
   cursor: pointer;
 }
-
