@@ -596,3 +596,7 @@ ul {
 .hidden {
   display: none;
 }
+.art-card {
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease;
+}
