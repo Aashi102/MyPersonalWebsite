@@ -253,7 +253,7 @@ async function askAI(question) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer YOUR_OPENROUTER_KEY_HERE"
+        "Authorization": "Bearer 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"
       },
       body: JSON.stringify({
         model: "openai/gpt-4o-mini",
