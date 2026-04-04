@@ -207,47 +207,22 @@ artCards.forEach(card => {
     card.style.transform = "rotateX(0) rotateY(0) scale(1)";
   });
 });
-/* -----------------------------------------
-   AI CHATBOT (OpenAI)
------------------------------------------ */
 
-const chatBtn = document.getElementById("chatbot-button");
-const chatWindow = document.getElementById("chatbot-window");
-const chatClose = document.getElementById("chatbot-close");
-const chatMessages = document.getElementById("chatbot-messages");
-const chatInput = document.getElementById("chatbot-input");
-const chatSend = document.getElementById("chatbot-send");
-
-chatBtn.addEventListener("click", () => {
-  chatWindow.classList.toggle("hidden");
-});
-
-chatClose.addEventListener("click", () => {
-  chatWindow.classList.add("hidden");
-});
-
-function addMessage(text, sender) {
-  const msg = document.createElement("div");
-  msg.className = `chatbot-msg chatbot-${sender}`;
-  msg.textContent = text;
-  chatMessages.appendChild(msg);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-}
-
+// AI CHATBOT
 async function askAI(question) {
   addMessage(question, "user");
 
-  const apiKey = "YOUR_API_KEY_HERE";
-
-  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+  const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`
+      "Authorization": "Bearer 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"
     },
     body: JSON.stringify({
-      model: "gpt-4o-mini",
-      messages: [{ role: "user", content: question }]
+      model: "openai/gpt-4o-mini",
+      messages: [
+        { role: "user", content: question }
+      ]
     })
   });
 
@@ -256,17 +231,3 @@ async function askAI(question) {
 
   addMessage(answer, "ai");
 }
-
-chatSend.addEventListener("click", () => {
-  const text = chatInput.value.trim();
-  if (text) {
-    askAI(text);
-    chatInput.value = "";
-  }
-});
-
-chatInput.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    chatSend.click();
-  }
-});
